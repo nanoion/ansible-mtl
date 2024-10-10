@@ -1,0 +1,8 @@
+- set_fact:
+    mynum: '{{ 100 | random() }}'
+
+- debug:
+    msg: "{{name}} = {{mynum}}"
+
+- set_fact:
+    nums: "{{nums|default([])+[{'name':name,'num':mynum}]}}"

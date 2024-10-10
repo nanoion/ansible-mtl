@@ -1,0 +1,33 @@
+- name: HelloWorld
+  hosts: local
+  gather_facts: no
+  connection: local
+  vars:
+    name: Thee
+    url: /var/log/message/docker
+    machines:
+    - name: exacc01
+      ip: 172.21.19.2
+    - name: exacc02
+      ip: 172.21.19.3
+    namelist: # ['thee','man','aum','zea']
+    - thee
+    - man
+    - aum
+    - zea
+  tasks:
+  - name: Call friends
+    include_tasks: sub.yml
+    loop: '{{namelist}}'
+    vars:
+      name: "{{item}}"
+    
+  - name: Select a object
+    debug:
+      msg: "{{nums|selectattr('name','equalto','aum')|list}}"
+
+  - name: Map objects
+    debug:
+      msg: "{{nums|map(attribute='num')|list|join(' ')}}"
+
+  

@@ -1,0 +1,21 @@
+- name: Sample Code to send Google Space
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+
+  tasks:
+  - name: Send Noti
+    uri:
+      # AWX-noti Space
+      url: https://chat.googleapis.com/v1/spaces/AAAArmR86BU/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BMTtL7V3uExJgjSQqPVw8a10sNvzLwc5kxuzoYumMss
+      method: POST
+      body_format: json
+      validate_certs: false
+      headers:
+        Content-Type: application/json
+      body: 
+        text: "\n{{title}}"
+    vars:
+      title: "Ansible to Google Space Chat"
+    ignore_errors: true
